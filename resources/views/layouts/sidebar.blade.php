@@ -4,7 +4,7 @@
 
                     <!--- Sidemenu -->
                     <div id="sidebar-menu">
-                        
+
                         <!-- Left Menu Start -->
                         <ul class="metismenu" id="side-menu">
                             <li class="menu-title">Main</li>
@@ -13,7 +13,7 @@
                                     <i class="ti-home"></i><span class="badge badge-primary badge-pill float-right">2</span> <span> Dashboard </span>
                                 </a>
                             </li>
-                            
+
 
                             <li>
                                 <a href="javascript:void(0);" class="waves-effect"><i class="ti-user"></i><span> Employees <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
@@ -21,7 +21,7 @@
                                     <li>
                                         <a href="/employees" class="waves-effect {{ request()->is("employees") || request()->is("/employees/*") ? "mm active" : "" }}"><i class="dripicons-view-apps"></i><span>Employees List</span></a>
                                     </li>
-                                   
+
                                 </ul>
                             </li>
 
@@ -67,6 +67,12 @@
                             <li class="">
                                 <a href="{{ route("finger_device.index") }}" class="waves-effect {{ request()->is("finger_device") || request()->is("finger_device/*") ? "mm active" : "" }}">
                                     <i class="fas fa-fingerprint"></i> <span> Biometric Device </span>
+                                </a>
+                            </li>
+
+                            <li class="">
+                                <a href="{{ route("qrcode.index") }}" class="waves-effect {{ request()->is("qrcode") || request()->is("qrcode/*") ? "mm active" : "" }}">
+                                    <i class="fas fa-qrcode"></i> <span> QrCode </span>
                                 </a>
                             </li>
 

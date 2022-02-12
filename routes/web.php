@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Http\Controllers\QrCodeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BiometricDeviceController;
 
@@ -11,6 +12,7 @@ Route::get('attended/{user_id}', '\App\Http\Controllers\AttendanceController@att
 Route::get('attended-before/{user_id}', '\App\Http\Controllers\AttendanceController@attendedBefore')->name(
     'attendedBefore'
 );
+
 Auth::routes(['register' => false, 'reset' => false]);
 
 Route::group(['middleware' => ['auth', 'Role'], 'roles' => ['admin']], function () {
@@ -53,11 +55,8 @@ Route::group(['middleware' => ['auth', 'Role'], 'roles' => ['admin']], function 
 
         return back();
     })->name('finger_device.clear.attendance');
-});
 
-Route::group(['middleware' => ['auth']], function () {
-    // Route::get('/home', 'HomeController@index')->name('home');
-
+    Route::get('/qrcode', [QrCodeController::class, 'index'])->name("qrcode.index");
 });
 
 // Route::get('/attendance/assign', function () {
