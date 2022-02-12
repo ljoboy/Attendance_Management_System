@@ -9,9 +9,7 @@ use Illuminate\Contracts\View\View;
 
 class QrCodeController extends Controller
 {
-    public function index(): Factory|View|Application
-    {
-        $employees = Employee::all();
-        return view('admin.qrcode.index', compact('employees'));
+    public function index(): Factory|View|Application {
+        return view('admin.qrcode.index')->with(['employees' => Employee::all()]);
     }
 }
