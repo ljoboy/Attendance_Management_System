@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
 use App\Helpers\FingerHelper;
@@ -33,9 +36,9 @@ class BiometricDeviceController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|View
      */
-    public function index()
+    public function index(): View|Factory|Application
     {
         $devices = FingerDevices::all();
 
@@ -45,9 +48,9 @@ class BiometricDeviceController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|View
      */
-    public function create()
+    public function create(): View|Factory|Application
     {
         return view('admin.fingerDevices.create');
     }
@@ -55,8 +58,8 @@ class BiometricDeviceController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param StoreRequest $request
+     * @return RedirectResponse
      */
     public function store(StoreRequest $request): RedirectResponse
     {
@@ -79,12 +82,12 @@ class BiometricDeviceController extends Controller
         return redirect()->route('finger_device.index');
     }
 
-    public function show(FingerDevices $fingerDevice)
+    public function show(FingerDevices $fingerDevice): Factory|View|Application
     {
         return view('admin.fingerDevices.show', compact('fingerDevice'));
     }
 
-    public function edit(FingerDevices $fingerDevice)
+    public function edit(FingerDevices $fingerDevice): Factory|View|Application
     {
         return view('admin.fingerDevices.edit', compact('fingerDevice'));
     }
@@ -132,14 +135,14 @@ class BiometricDeviceController extends Controller
         return back();
     }
 
-    public function getAttendance(FingerDevices $fingerDevice)
+    public function getAttendance(FingerDevices $fingerDevice): RedirectResponse
     {
         $device = new ZKTeco($fingerDevice->ip, 4370);
 
         $device->connect();
 
         $data = $device->getAttendance();
-        
+
         foreach ($data as $key => $value) {
             if( $value['type']==0){
             if ($employee = Employee::whereId($value['id'])->first()) {
@@ -165,9 +168,9 @@ class BiometricDeviceController extends Controller
                 }
             }
         }
-    
+
         else{
-       
+
             if ($employee = Employee::whereId($value['id'])->first()) {
                 if (
                     !Leave::whereLeave_date(date('Y-m-d', strtotime($value['timestamp'])))
@@ -185,8 +188,8 @@ class BiometricDeviceController extends Controller
 
                     if (!($employee->schedules->first()->time_out<=$lve_table->leave_time)) {
                         $lve_table->status = 0;
-                        
-                    } 
+
+                    }
                     else {
                         leaveController::overTimeDevice($value['timestamp'],$employee);
                     }
@@ -196,7 +199,7 @@ class BiometricDeviceController extends Controller
         }
         }
 
-        
+
         flash()->success('Success', 'Attendance Queue will run in a minute!');
 
         return back();
