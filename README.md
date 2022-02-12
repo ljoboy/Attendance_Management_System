@@ -4,13 +4,7 @@
 
 Attendance Management System is a web application based on Laravel which keeps track of employee hours. It is the system you use to document the time your employees work and the time they take off.
 ## Demo
-<a href="http://ams.aliatayee.com">ademo link</a> 
-<p>
-    admin credential
-    <br>
-    username:ali@aliatayee.com <br>
-    password:ali123
-</p>
+
 
 ## Screenshots
 ![1](https://user-images.githubusercontent.com/74867463/144262662-b7fbe66e-5c4c-46fb-8bab-9cf3121c2032.png)
