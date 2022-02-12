@@ -6,10 +6,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property mixed $schedules
+ */
 class Employee extends Model
 {
     use HasFactory, Notifiable;
-    
+
     public function getRouteKeyName()
     {
         return 'name';
@@ -19,7 +22,7 @@ class Employee extends Model
         'name', 'email', 'pin_code'
     ];
 
-  
+
     protected $hidden = [
         'pin_code', 'remember_token',
     ];
@@ -52,6 +55,6 @@ class Employee extends Model
     }
 
 
-    
+
 
 }

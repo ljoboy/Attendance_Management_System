@@ -6,14 +6,15 @@ use DateTime;
 use App\Models\Employee;
 use App\Models\Latetime;
 use App\Models\Attendance;
+use Exception;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\AttendanceEmp;
 
 class AttendanceController extends Controller
-{   
-    //show attendance 
+{
+    //show attendance
     public function index()
-    {  
+    {
         return view('admin.attendance')->with(['attendances' => Attendance::all()]);
     }
 
@@ -23,7 +24,7 @@ class AttendanceController extends Controller
         return view('admin.latetime')->with(['latetimes' => Latetime::all()]);
     }
 
-    
+
 
     // public static function lateTime(Employee $employee)
     // {
@@ -38,6 +39,9 @@ class AttendanceController extends Controller
     //     $latetime->save();
     // }
 
+    /**
+     * @throws Exception
+     */
     public static function lateTimeDevice($att_dateTime, Employee $employee)
     {
         $attendance_time = new DateTime($att_dateTime);
@@ -50,5 +54,5 @@ class AttendanceController extends Controller
         $latetime->latetime_date = date('Y-m-d', strtotime($att_dateTime));
         $latetime->save();
     }
-  
+
 }

@@ -12,9 +12,9 @@ use App\Http\Requests\AttendanceEmp;
 use Illuminate\Http\Request;
 
 
-class ApiController extends Controller
+class APIController extends Controller
 {
-    
+
     public function check(AttendanceEmp $request)
     {
         $request->validated();
@@ -27,11 +27,11 @@ class ApiController extends Controller
 
 
                 if(null == Check::whereEmp_id($employee->id)->latest()->first()){
-                    ApiController::newAttandance($employee);
+                    APIController::newAttandance($employee);
                 }else{
-                    
+
                     if(Check::whereEmp_id($employee->id)->latest()->first()->leave_time !== null){
-                        ApiController::newAttandance($employee);
+                        APIController::newAttandance($employee);
                     } else {
                         $check = Check::whereEmp_id($employee->id)->latest()->first();
                         $check->leave_time = date("Y-m-d H:i:s");
