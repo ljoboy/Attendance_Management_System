@@ -2,19 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use App\Models\Employee;
-use App\Models\Role;
 use App\Models\Schedule;
 use App\Http\Requests\EmployeeRec;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class EmployeeController extends Controller
 {
-   
+
     public function index()
     {
-        
+
         return view('admin.employee')->with(['employees'=> Employee::all(), 'schedules'=>Schedule::all()]);
     }
 
@@ -45,7 +43,7 @@ class EmployeeController extends Controller
         return redirect()->route('employees.index')->with('success');
     }
 
- 
+
     public function update(EmployeeRec $request, Employee $employee)
     {
         $request->validated();

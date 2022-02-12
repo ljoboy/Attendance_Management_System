@@ -19,7 +19,7 @@ class Employee extends Model
     }
     protected $table = 'employees';
     protected $fillable = [
-        'name', 'email', 'pin_code'
+        'name', 'email', 'pin_code', 'qrcode_url'
     ];
 
 
