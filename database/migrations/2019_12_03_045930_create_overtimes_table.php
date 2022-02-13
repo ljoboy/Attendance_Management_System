@@ -14,8 +14,8 @@ class CreateOvertimesTable extends Migration
     public function up()
     {
         Schema::create('overtimes', function (Blueprint $table) {
-            $table->Increments('id');
-            $table->integer('emp_id')->unsigned();
+            $table->id();
+            $table->unsignedBigInteger('emp_id');
             $table->time('duration');
             $table->date('overtime_date');
 
@@ -36,7 +36,7 @@ class CreateOvertimesTable extends Migration
         Schema::table('overtimes', function (Blueprint $table) {
             $table->dropForeign(['emp_id']);
            });
-   
+
 
         Schema::dropIfExists('overtimes');
     }

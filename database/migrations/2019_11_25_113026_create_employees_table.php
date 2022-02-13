@@ -14,8 +14,7 @@ class CreateEmployeesTable extends Migration
     public function up()
     {
         Schema::create('employees', function (Blueprint $table) {
-          
-            $table->Increments('id')->from(111)->unsigned();
+            $table->id();
             $table->string('name');
             $table->string('position');
             $table->string('email')->nullable()->unique();
@@ -25,7 +24,6 @@ class CreateEmployeesTable extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
-        
     }
 
     /**

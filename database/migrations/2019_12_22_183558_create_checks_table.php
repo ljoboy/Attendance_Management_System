@@ -14,8 +14,8 @@ class CreateChecksTable extends Migration
     public function up()
     {
         Schema::create('checks', function (Blueprint $table) {
-            $table->Increments('id');
-            $table->integer('emp_id')->unsigned();
+            $table->id();
+            $table->unsignedBigInteger('emp_id');
 
             $table->dateTime('attendance_time');
             $table->dateTime('leave_time')->nullable();

@@ -14,7 +14,7 @@ class CreateRolesTable extends Migration
     public function up()
     {
         Schema::create('roles', function (Blueprint $table) {
-            $table->Increments('id');
+            $table->id();
             $table->string('slug')->unique();
             $table->string('name');
             $table->text('permissions')->nullable();
@@ -42,7 +42,7 @@ class CreateRolesTable extends Migration
             $table->dropForeign(['role_id']);
             $table->dropForeign(['user_id']);
            });
-     
+
 
         Schema::dropIfExists('role_users');
         Schema::dropIfExists('roles');

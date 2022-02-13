@@ -14,8 +14,8 @@ class CreateLatetimesTable extends Migration
     public function up()
     {
         Schema::create('latetimes', function (Blueprint $table) {
-            $table->Increments('id');
-            $table->integer('emp_id')->unsigned();
+            $table->id();
+            $table->unsignedBigInteger('emp_id');
             $table->time('duration');
             $table->date('latetime_date');
 
@@ -32,11 +32,10 @@ class CreateLatetimesTable extends Migration
      */
     public function down()
     {
-        
         Schema::table('latetimes', function (Blueprint $table) {
             $table->dropForeign(['emp_id']);
            });
-   
+
 
         Schema::dropIfExists('latetimes');
     }

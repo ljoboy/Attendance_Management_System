@@ -14,10 +14,10 @@ class CreateAttendancesTable extends Migration
     public function up()
     {
         Schema::create('attendances', function (Blueprint $table) {
-            $table->Increments('id');
+            $table->id();
 
-            $table->integer('uid')->unsigned()->default(0);
-            $table->integer('emp_id')->unsigned();
+            $table->unsignedBigInteger('uid')->default(0);
+            $table->unsignedBigInteger('emp_id');
             $table->boolean('state')->default(0);
             $table->time('attendance_time')->default(date("H:i:s"));;
             $table->date('attendance_date')->default(date("Y-m-d"));;
@@ -38,8 +38,7 @@ class CreateAttendancesTable extends Migration
         Schema::table('attendances', function (Blueprint $table) {
             $table->dropForeign(['emp_id']);
            });
-   
-     
+
 
         Schema::dropIfExists('attendances');
     }

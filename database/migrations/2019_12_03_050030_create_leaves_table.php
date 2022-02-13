@@ -14,9 +14,9 @@ class CreateLeavesTable extends Migration
     public function up()
     {
         Schema::create('leaves', function (Blueprint $table) {
-            $table->Increments('id');
-            $table->integer('uid')->unsigned()->default(0);
-            $table->integer('emp_id')->unsigned();
+            $table->id();
+            $table->unsignedBigInteger('uid')->default(0);
+            $table->unsignedBigInteger('emp_id');
             $table->boolean('state')->default(0);
             $table->time('leave_time')->default(date("H:i:s"));
             $table->date('leave_date')->default(date("Y-m-d"));
@@ -26,7 +26,7 @@ class CreateLeavesTable extends Migration
 
             $table->foreign('emp_id')->references('id')->on('employees')->onDelete('cascade');
 
-           
+
         });
     }
 
@@ -37,7 +37,6 @@ class CreateLeavesTable extends Migration
      */
     public function down()
     {
-        
         Schema::table('leaves', function (Blueprint $table) {
          $table->dropForeign(['emp_id']);
         });
