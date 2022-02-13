@@ -41,17 +41,10 @@ class QrCodeController extends Controller
 
     public function generate_one(Employee $employee): JsonResponse
     {
-        if ($employee) {
-            $this->qrcodeHelper->generate($employee);
-            return response()->json(
-                ['success' => true, 'message' => "{$employee->name}'s QrCode exported successfully!"],
-                Response::HTTP_CREATED
-            );
-        } else {
-            return response()->json(
-                ['success' => false, 'message' => 'Unknown error occurred!'],
-                Response::HTTP_BAD_REQUEST
-            );
-        }
+        $this->qrcodeHelper->generate($employee);
+        return response()->json(
+            ['success' => true, 'message' => "{$employee->name}'s QrCode exported successfully!"],
+            Response::HTTP_CREATED
+        );
     }
 }
