@@ -5,7 +5,7 @@
 <script src="{{ URL::asset('assets/js/jquery.slimscroll.js') }}"></script>
 <script src="{{ URL::asset('assets/js/waves.min.js') }}"></script>
 
- @yield('script')
+@yield('script')
 
 <!-- App js-->
 <script src="{{ URL::asset('assets/js/app.js') }}"></script>
@@ -14,9 +14,10 @@
 <!-- Sweet-Alert  -->
 {{-- <script src="{{ URL::asset('plugins/sweet-alert2/sweetalert2.min.js') }}"></script>
 <script src="{{ URL::asset('assets/pages/sweet-alert.init.js') }}"></script>   --}}
-<script src="/js/sweetalert.min.js"></script>
+{{--<script src="/js/sweetalert.min.js"></script>--}}
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- Responsive-table-->
-<script src="{{ URL::asset('plugins/RWD-Table-Patterns/dist/js/rwd-table.min.js') }}"></script>      
+<script src="{{ URL::asset('plugins/RWD-Table-Patterns/dist/js/rwd-table.min.js') }}"></script>
 <!-- Required datatable js -->
 <script src="{{ URL::asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script src="{{ URL::asset('plugins/datatables/dataTables.bootstrap4.min.js') }}"></script>
@@ -34,8 +35,6 @@
 <script src="{{ URL::asset('plugins/datatables/responsive.bootstrap4.min.js') }}"></script>
 
 <!-- Datatable init js -->
-<script src="{{ URL::asset('assets/pages/datatables.init.js') }}"></script>   
-
-
+<script src="{{ URL::asset('assets/pages/datatables.init.js') }}"></script>
 @yield('script-bottom')
 

@@ -12,7 +12,7 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="javascript:void(0);">Home</a></li>
             <li class="breadcrumb-item"><a href="javascript:void(0);">Schedule</a></li>
- 
+
 
         </ol>
     </div>
@@ -34,7 +34,7 @@
                     <div class="table-rep-plugin">
                         <div class="table-responsive mb-0" data-pattern="priority-columns">
                             <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                                        
+
                                 <thead>
                                     <tr>
                                         <th data-priority="1">ID</th>
@@ -42,7 +42,7 @@
                                         <th data-priority="3">Time In</th>
                                         <th data-priority="4">Time Out</th>
                                         <th data-priority="5">Action</th>
-                                     
+
 
                                     </tr>
                                 </thead>
@@ -56,7 +56,8 @@
                                             <td>
 
                                                 <a href="#edit{{ $schedule->slug }}" data-toggle="modal"
-                                                    class="btn btn-success btn-sm edit btn-flat"><i class='fa fa-edit'></i>
+                                                   private class="btn btn-success btn-sm edit btn-flat"><i
+                                                        class='fa fa-edit'></i>
                                                     Edit</a>
                                                 <a href="#delete{{ $schedule->slug }}" data-toggle="modal"
                                                     class="btn btn-danger btn-sm delete btn-flat"><i

@@ -1,13 +1,14 @@
 <!-- App favicon -->
-<link rel="shortcut icon" href="{{ URL::asset('assets/images/') }}">
-<meta name="viewport" content="width=device-width, initial-scale=1">      
+<link rel="shortcut icon" href="{{ URL::asset('assets/images/favicon.ico') }}">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="csrf-token" content="{{ csrf_token() }}"/>
 @yield('css')
 
- <!-- App css -->
-<link href="{{ URL::asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
+<!-- App css -->
+<link href="{{ URL::asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css"/>
 <link href="{{ URL::asset('assets/css/metismenu.min.css') }}" rel="stylesheet" type="text/css">
-<link href="{{ URL::asset('assets/css/icons.css') }}" rel="stylesheet" type="text/css" />
-<link href="{{ URL::asset('assets/css/style.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ URL::asset('assets/css/icons.css') }}" rel="stylesheet" type="text/css"/>
+<link href="{{ URL::asset('assets/css/style.css') }}" rel="stylesheet" type="text/css"/>
 
 {{-- <link href="{{ URL::asset('plugins/sweet-alert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css"> --}}
 <link href="{{ asset('plugins/sweetalert.min.css') }}" rel="stylesheet">
