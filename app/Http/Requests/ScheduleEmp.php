@@ -3,7 +3,13 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use JetBrains\PhpStorm\ArrayShape;
 
+/**
+ * @property mixed $slug
+ * @property mixed $time_in
+ * @property mixed $time_out
+ */
 class ScheduleEmp extends FormRequest
 {
     /**
@@ -11,7 +17,7 @@ class ScheduleEmp extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -21,7 +27,8 @@ class ScheduleEmp extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    #[ArrayShape(['slug' => "string", 'time_in' => "string", 'time_out' => "string"])]
+    public function rules(): array
     {
         return [
             'slug' => 'required|string|min:3|max:32|alpha_dash',
