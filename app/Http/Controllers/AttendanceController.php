@@ -7,19 +7,22 @@ use App\Models\Employee;
 use App\Models\Latetime;
 use App\Models\Attendance;
 use Exception;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\AttendanceEmp;
 
 class AttendanceController extends Controller
 {
     //show attendance
-    public function index()
+    public function index(): Factory|View|Application
     {
         return view('admin.attendance')->with(['attendances' => Attendance::all()]);
     }
 
     //show late times
-    public function indexLatetime()
+    public function indexLatetime(): Factory|View|Application
     {
         return view('admin.latetime')->with(['latetimes' => Latetime::all()]);
     }
