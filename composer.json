@@ -16,6 +16,7 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.3",
         "rats/zkteco": "^002.0",
+        "realrashid/sweet-alert": "^5.0",
         "simplesoftwareio/simple-qrcode": "^4.2"
     },
     "require-dev": {
