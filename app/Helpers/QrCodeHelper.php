@@ -4,7 +4,6 @@ namespace App\Helpers;
 
 use App\Models\Employee;
 use Illuminate\Support\Facades\Crypt;
-use Illuminate\Support\Facades\URL;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class QrCodeHelper
@@ -28,7 +27,7 @@ class QrCodeHelper
         $path = "/qrcodes/" . clean($employee->name) . ".png";
         $realpath = realpath(__DIR__ . "/../../public/") . $path;
         QrCode::format('png')->style('round')->size(200)->generate(
-            route('qrcode.scan', [Crypt::encrypt($employee->id)]),
+            route('qrcode.scan', [Crypt::encrypt($employee->id, true)]),
             $realpath
         );
         $employee->qrcode_url = $path;
