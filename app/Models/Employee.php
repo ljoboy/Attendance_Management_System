@@ -3,17 +3,21 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property mixed $schedules
+ * @property mixed|string $qrcode_url
+ * @property mixed $id
  */
 class Employee extends Model
 {
     use HasFactory, Notifiable;
 
-    public function getRouteKeyName()
+    public function getRouteKeyName(): string
     {
         return 'name';
     }
@@ -28,28 +32,32 @@ class Employee extends Model
     ];
 
 
-    public function check()
+    public function check(): HasMany
     {
         return $this->hasMany(Check::class);
     }
 
-    public function attendance()
+    public function attendance(): HasMany
     {
         return $this->hasMany(Attendance::class);
     }
-    public function latetime()
+
+    public function latetime(): HasMany
     {
         return $this->hasMany(Latetime::class);
     }
-    public function leave()
+
+    public function leave(): HasMany
     {
         return $this->hasMany(Leave::class);
     }
-    public function overtime()
+
+    public function overtime(): HasMany
     {
         return $this->hasMany(Overtime::class);
     }
-    public function schedules()
+
+    public function schedules(): BelongsToMany
     {
         return $this->belongsToMany('App\Models\Schedule', 'schedule_employees', 'emp_id', 'schedule_id');
     }
