@@ -54,28 +54,30 @@
                                 </a>
                             </li>
                             <li class="">
-                                <a href="/leave" class="waves-effect {{ request()->is("leave") || request()->is("leave/*") ? "mm active" : "" }}">
+                                <a href="/leave"
+                                   class="waves-effect {{ request()->is("leave") || request()->is("leave/*") ? "mm active" : "" }}">
                                     <i class="dripicons-backspace"></i> <span> Leave </span>
                                 </a>
                             </li>
                             <li class="">
-                                <a href="/overtime" class="waves-effect {{ request()->is("overtime") || request()->is("overtime/*") ? "mm active" : "" }}">
+                                <a href="/overtime"
+                                   class="waves-effect {{ request()->is("overtime") || request()->is("overtime/*") ? "mm active" : "" }}">
                                     <i class="dripicons-alarm"></i> <span> Over Time </span>
                                 </a>
                             </li>
                             <li class="menu-title">Tools</li>
                             <li class="">
-                                <a href="{{ route("finger_device.index") }}" class="waves-effect {{ request()->is("finger_device") || request()->is("finger_device/*") ? "mm active" : "" }}">
-                                    <i class="fas fa-fingerprint"></i> <span> Biometric Device </span>
-                                </a>
-                            </li>
-
-                            <li class="">
-                                <a href="{{ route("qrcode.index") }}" class="waves-effect {{ request()->is("qrcode") || request()->is("qrcode/*") ? "mm active" : "" }}">
+                                <a href="{{ route("qrcode.index") }}"
+                                   class="waves-effect {{ request()->is("qrcode") || request()->is("qrcode/*") ? "mm active" : "" }}">
                                     <i class="fas fa-qrcode"></i> <span> QrCode </span>
                                 </a>
                             </li>
-
+                            <li class="">
+                                <a href="{{ route("finger_device.index") }}"
+                                   class="waves-effect {{ request()->is("finger_device") || request()->is("finger_device/*") ? "mm active" : "" }}">
+                                    <i class="fas fa-fingerprint"></i> <span> Biometric Device </span>
+                                </a>
+                            </li>
                         </ul>
 
                     </div>
