@@ -2,8 +2,9 @@
 
 
 use App\Http\Controllers\QrCodeController;
+use App\Http\Controllers\ScheduleController;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\BiometricDeviceController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -17,7 +18,6 @@ Auth::routes(['register' => false, 'reset' => false]);
 
 Route::group(['middleware' => ['auth', 'Role'], 'roles' => ['admin']], function () {
     Route::resource('/employees', '\App\Http\Controllers\EmployeeController');
-    Route::resource('/employees', '\App\Http\Controllers\EmployeeController');
     Route::get('/attendance', '\App\Http\Controllers\AttendanceController@index')->name('attendance');
 
     Route::get('/latetime', '\App\Http\Controllers\AttendanceController@indexLatetime')->name('indexLatetime');
@@ -26,7 +26,7 @@ Route::group(['middleware' => ['auth', 'Role'], 'roles' => ['admin']], function 
 
     Route::get('/admin', '\App\Http\Controllers\AdminController@index')->name('admin');
 
-    Route::resource('/schedule', '\App\Http\Controllers\ScheduleController');
+    Route::resource('/schedule', ScheduleController::class)->only(['index', 'store', 'update', 'destroy']);
 
     Route::get('/check', '\App\Http\Controllers\CheckController@index')->name('check');
     Route::get('/sheet-report', '\App\Http\Controllers\CheckController@sheetReport')->name('sheet-report');
@@ -48,7 +48,7 @@ Route::group(['middleware' => ['auth', 'Role'], 'roles' => ['admin']], function 
     )->name('finger_device.get.attendance');
     // Temp Clear Attendance route
     Route::get('finger_device/clear/attendance', function () {
-        $midnight = \Carbon\Carbon::createFromTime(23, 50, 00);
+        $midnight = Carbon::createFromTime(23, 50, 00);
         $diff = now()->diffInMinutes($midnight);
         dispatch(new ClearAttendanceJob())->delay(now()->addMinutes($diff));
         toast("Attendance Clearance Queue will run in 11:50 P.M}!", "success");
@@ -57,6 +57,7 @@ Route::group(['middleware' => ['auth', 'Role'], 'roles' => ['admin']], function 
     })->name('finger_device.clear.attendance');
 
     Route::get('/qrcode', [QrCodeController::class, 'index'])->name("qrcode.index");
+    Route::post('/qrcode', [QrCodeController::class, 'generate_all'])->name("qrcode.generate.all");
 });
 
 // Route::get('/attendance/assign', function () {
