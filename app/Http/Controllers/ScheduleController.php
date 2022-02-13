@@ -4,38 +4,37 @@ namespace App\Http\Controllers;
 
 use App\Models\Schedule;
 use App\Http\Requests\ScheduleEmp;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 
 class ScheduleController extends Controller
 {
-   
-    public function index()
+
+    public function index(): Factory|View|Application
     {
-     
         return view('admin.schedule')->with('schedules', Schedule::all());
-        flash()->success('Success','Schedule has been created successfully !');
+//        flash()->success('Success','Schedule has been created successfully !');
 
     }
 
 
-    public function store(ScheduleEmp $request)
+    public function store(ScheduleEmp $request): RedirectResponse
     {
         $request->validated();
-
-        $schedule = new schedule;
+        $schedule = new schedule();
         $schedule->slug = $request->slug;
         $schedule->time_in = $request->time_in;
         $schedule->time_out = $request->time_out;
         $schedule->save();
 
 
-
-
-        flash()->success('Success','Schedule has been created successfully !');
+        flash()->success('Success', 'Schedule has been created successfully !');
         return redirect()->route('schedule.index');
-
     }
 
-    public function update(ScheduleEmp $request, Schedule $schedule)
+    public function update(ScheduleEmp $request, Schedule $schedule): RedirectResponse
     {
         $request['time_in'] = str_split($request->time_in, 5)[0];
         $request['time_out'] = str_split($request->time_out, 5)[0];
@@ -46,17 +45,15 @@ class ScheduleController extends Controller
         $schedule->time_in = $request->time_in;
         $schedule->time_out = $request->time_out;
         $schedule->save();
-        flash()->success('Success','Schedule has been Updated successfully !');
+        flash()->success('Success', 'Schedule has been Updated successfully !');
         return redirect()->route('schedule.index');
-
-
     }
 
-  
-    public function destroy(Schedule $schedule)
+
+    public function destroy(Schedule $schedule): RedirectResponse
     {
         $schedule->delete();
-        flash()->success('Success','Schedule has been deleted successfully !');
+        flash()->success('Success', 'Schedule has been deleted successfully !');
         return redirect()->route('schedule.index');
     }
 }
