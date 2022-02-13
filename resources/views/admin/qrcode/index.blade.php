@@ -19,7 +19,7 @@
     @include('includes.flash')
 
     <button onclick="generateQrcodes();" class="btn btn-primary btn-sm btn-flat"><i
-            class="mdi mdi-qrcode-edit mr-2"></i>Generate for all
+            class="mdi mdi-qrcode-scan mr-2"></i>Generate for all
     </button>
     <div class="row">
         <div class="col-12">
@@ -48,13 +48,25 @@
                                 <td>{{$employee->name}}</td>
                                 <td>{{$employee->position}}</td>
                                 <td>{{$employee->email}}</td>
-                                <td><a href="{{url('/') . $employee->qrcode_url}}">{{$employee->qrcode_url}}</a></td>
+                                <td>
+                                    @if($employee->qrcode_url)
+                                        <img src="{{URL::asset($employee->qrcode_url)}}"
+                                             alt="{{$employee->name}}'s QrCode"/>
+                                    @endif
+                                </td>
                                 <td>{{$employee->created_at}}</td>
                                 <td>
-
-                                    {{--                            url('qrcode.generate', $employee)--}}
-                                    <a href="{{$employee->name}}" class="btn btn-success btn-sm edit btn-flat"><i
-                                            class='fa fa-qrcode'></i> Generate QrCode </a>
+                                    @if(!$employee->qrcode_url)
+                                        <a href="{{route('qrcode.generate.one', [$employee])}}"
+                                           class="btn btn-success btn-sm edit btn-flat">
+                                            <i class='fa fa-qrcode'></i> Generate QrCode
+                                        </a>
+                                    @else
+                                        <a href="{{route('qrcode.generate.one', $employee->id)}}"
+                                           class="btn btn-warning btn-sm edit btn-flat">
+                                            <i class='mdi mdi-qrcode-edit'></i> Regenerate QrCode
+                                        </a>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach
@@ -79,50 +91,43 @@
                 title: "Generate?",
                 icon: 'question',
                 text: "Please ensure and then confirm!",
-                type: "warning",
                 showCancelButton: !0,
+                showLoaderOnConfirm: true,
                 confirmButtonText: "Yes, generate it!",
                 cancelButtonText: "No, cancel!",
-                showLoaderOnConfirm: true,
-                preConfirm: undefined,
                 allowEscapeKey: false,
                 allowOutsideClick: () => !Swal.isLoading(),
-                reverseButtons: !0
-            }).then(function (e) {
+                reverseButtons: !0,
+                preConfirm: function () {
+                    return new Promise(function () {
+                        const CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 
-                if (e.value === true) {
-                    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-
-                    $.ajax({
-                        type: 'POST',
-                        url: "{{url('/qrcode')}}",
-                        data: {_token: CSRF_TOKEN},
-                        dataType: 'JSON',
-                        success: function (results) {
-                            if (results.success === true) {
-                                Swal.fire("Done!", results.message, "success");
-                                // refresh page after 2 seconds
-                                setTimeout(function () {
-                                    location.reload();
-                                }, 2000);
-                            } else {
-                                Swal.fire("Error!", results.message, "error");
+                        $.ajax({
+                            type: 'POST',
+                            url: "{{url('/qrcode')}}",
+                            data: {_token: CSRF_TOKEN},
+                            dataType: 'JSON',
+                            success: function (results) {
+                                if (results.success === true) {
+                                    Swal.fire("Done!", results.message, "success");
+                                    // refresh page after 2 seconds
+                                    setTimeout(function () {
+                                        location.reload();
+                                    }, 2000);
+                                } else {
+                                    Swal.fire("Error!", results.message, "error");
+                                }
+                            },
+                            error: function (results) {
+                                Swal.fire("Error!", results.messages, "error");
+                                console.log(results);
                             }
-                        },
-                        error: function (results) {
-                            Swal.fire("Error!", results.messages, "error");
-                            console.log(results)
-                        }
+                        });
                     });
-
-                } else {
-                    e.dismiss;
-                }
-
-            }, function (dismiss) {
-                return false;
-            })
+                },
+            }).then(function (results) {
+                console.log(results);
+            });
         }
-
     </script>
 @endsection
