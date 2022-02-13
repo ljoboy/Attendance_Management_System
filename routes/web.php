@@ -1,6 +1,5 @@
 <?php
 
-
 use App\Http\Controllers\QrCodeController;
 use App\Http\Controllers\ScheduleController;
 use Carbon\Carbon;
@@ -70,7 +69,7 @@ Route::get('/qrcode/scan/{encrypted_emp_id}', [QrCodeController::class, 'scan'])
 //     return view('attendance_leave_login');
 // })->name('attendance.login');
 
-// Route::post('/attendance/assign', '\App\Http\Controllers\AttendanceController@assign')->name('attendance.assign');
+// Route::post('/attendance/assign', [AttendanceController::class, 'assign'])->name('attendance.assign');
 
 
 // Route::get('/leave/assign', function () {
