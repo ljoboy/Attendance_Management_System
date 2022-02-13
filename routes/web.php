@@ -57,8 +57,13 @@ Route::group(['middleware' => ['auth', 'Role'], 'roles' => ['admin']], function 
     })->name('finger_device.clear.attendance');
 
     Route::get('/qrcode', [QrCodeController::class, 'index'])->name("qrcode.index");
+
     Route::post('/qrcode', [QrCodeController::class, 'generate_all'])->name("qrcode.generate.all");
+    Route::post('/qrcode/{employee_id}', [QrCodeController::class, 'generate_one'])->name("qrcode.generate.one");
 });
+
+Route::get('/qrcode/scan/{employee_id}', [QrCodeController::class, 'scan'])->name("qrcode.scan");
+//Route::post('/qrcode/scan/{employee_id}', [QrCodeController::class, 'scan'])->name("qrcode.scan");
 
 // Route::get('/attendance/assign', function () {
 //     return view('attendance_leave_login');
