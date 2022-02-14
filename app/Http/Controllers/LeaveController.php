@@ -39,16 +39,14 @@ class LeaveController extends Controller
     // }
     public static function overTimeDevice($att_dateTime, Employee $employee)
     {
-        
-            $attendance_time =new DateTime($att_dateTime);
-            $checkout = new DateTime($employee->schedules->first()->time_out);
-            $difference = $checkout->diff($attendance_time)->format('%H:%I:%S');
+        $attendance_time = new DateTime($att_dateTime);
+        $checkout = new DateTime($employee->schedules->first()->time_out);
+        $difference = $checkout->diff($attendance_time)->format('%H:%I:%S');
 
-            $overtime = new Overtime();
-            $overtime->emp_id = $employee->id;
-            $overtime->duration = $difference;
-            $overtime->overtime_date = date('Y-m-d', strtotime($att_dateTime));
-            $overtime->save();
-        
+        $overtime = new Overtime();
+        $overtime->emp_id = $employee->id;
+        $overtime->duration = $difference;
+        $overtime->overtime_date = date('Y-m-d', strtotime($att_dateTime));
+        $overtime->save();
     }
 }

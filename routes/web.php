@@ -63,7 +63,7 @@ Route::group(['middleware' => ['auth', 'Role'], 'roles' => ['admin']], function 
 });
 
 Route::get('/qrcode/scan/{encrypted_emp_id}', [QrCodeController::class, 'scan'])->name("qrcode.scan");
-//Route::post('/qrcode/scan/{employee_id}', [QrCodeController::class, 'scan'])->name("qrcode.scan");
+Route::post('/qrcode/scan', [QrCodeController::class, 'attendanceByScan'])->name("qrcode.attendee");
 
 // Route::get('/attendance/assign', function () {
 //     return view('attendance_leave_login');

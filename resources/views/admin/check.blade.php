@@ -66,7 +66,7 @@
 
                                         @php
 
-                                            use Carbon\Carbon;$date_picker = Carbon::createFromDate($today->year, $today->month, $i)->format('Y-m-d');
+                                            $date_picker = \Carbon\Carbon::createFromDate($today->year, $today->month, $i)->format('Y-m-d');
 
                                             $check_attd = \App\Models\Attendance::query()
                                                 ->where('emp_id', $employee->id)

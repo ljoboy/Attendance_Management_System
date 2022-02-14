@@ -15,8 +15,8 @@ class AttendanceService
      */
     public function addAttendee(Employee $employee, string $attendance_date = null): bool
     {
-        $schedule = $employee->schedules()->get(['time_out', 'time_in'])->first();
-        $employee_attendance_time = ($attendance_date) ? date('H:i:s') : $schedule->time_in;
+        $schedule = $employee->schedules()->get()->first();
+        $employee_attendance_time = (is_null($attendance_date)) ? date('H:i:s') : $schedule->time_in;
         $attendance_date = $attendance_date ?? date('Y-m-d');
 
         if (!Attendance::attendable($attendance_date, $employee->id)) {
@@ -38,7 +38,7 @@ class AttendanceService
 
     private function checkAttendanceTime(string $schedule_time_in, string $employee_time_in): bool
     {
-        return !(strtotime($schedule_time_in) >= strtotime($employee_time_in));
+        return !(strtotime($schedule_time_in) < strtotime($employee_time_in));
     }
 
     /**

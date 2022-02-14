@@ -3,15 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\QrCodeHelper;
+use App\Http\Requests\AttendancePinRequest;
 use App\Models\Employee;
 use App\Services\AttendanceService;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;
 
 class QrCodeController extends Controller
@@ -54,11 +58,25 @@ class QrCodeController extends Controller
     /**
      * @throws Exception
      */
-    public function scan(string $encrypted_emp_id, AttendanceService $attendanceService): bool
+    public function attendanceByScan(AttendancePinRequest $request, AttendanceService $attendanceService): JsonResponse
+    {
+        $employee = $this->cryptedEmployee($request->post('encrypted_emp_id'));
+        if (!$attendanceService->addAttendee($employee) || !Hash::check($request->post('pin'), $employee->pin_code)) {
+            return response()->json(['error' => 'Failed to assign the attendance'], Response::HTTP_BAD_REQUEST);
+        } else {
+            return response()->json(['success' => 'Attendance assigned successfully'], Response::HTTP_OK);
+        }
+    }
+
+    public function scan(string $encrypted_emp_id): Factory|View|Application
+    {
+        $employee = $this->cryptedEmployee($encrypted_emp_id);
+        return view('admin.qrcode.scan')->with(['employee' => $employee, 'encrypted_emp_id' => $encrypted_emp_id]);
+    }
+
+    private function cryptedEmployee(string $encrypted_emp_id): Model|Collection|array|Employee|null
     {
         $emp_id = Crypt::decrypt($encrypted_emp_id, true);
-        $employee = Employee::findOrFail($emp_id);
-
-        return $attendanceService->addAttendee($employee);
+        return Employee::findOrFail($emp_id);
     }
 }
